@@ -1,0 +1,520 @@
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>MPEG-DASH Livestream</title> 
+  <link rel="icon" href="https://t3.ftcdn.net/jpg/07/64/58/82/360_F_764588245_f0tNjP4swyEiPTlWngb0qMqWwKYqfxRX.jpg"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shaka-player@latest/dist/controls.css"> 
+  <style>
+  @import url('https://fonts.googleapis.com/css?family=Poppins');
+    * {
+      font-family: 'Poppins'; font-size: 15px;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      font-weight: 300;
+      background: rgba(25,32,64,255);
+    }
+    #wrapper {
+      height: 90vh;
+    }
+    #banner {
+      width: 100%
+    }
+    #banner h1 {
+      margin: 0;
+      padding: 30px;
+    }
+    .clear {
+      clear: both;
+    }
+    .content {
+      margin-bottom: 10em;
+    }
+    h1, h2, h3, p {
+      font-weight: 300;
+      text-align: center;
+      margin: 40px;
+    }
+    #video {
+      height: auto;
+      width: 100%;
+      -webkit-box-shadow: 0px 0px 56px 0px rgba(25,32,64,255);
+      -moz-box-shadow: 0px 0px 56px 0px rgba(25,32,64,255);
+      box-shadow: 0px 0px 56px 0px rgba(25,32,64,255);
+    }
+    a {
+      color: #97d9ef;
+      font-weight: 400;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #fff;
+    }
+    .radio-input {
+      color: white;
+      padding: 10px 20px;
+      cursor: none;
+      border-radius: 5px;
+      margin: 5px;
+    }
+    .radio-input input[type="radio"] {
+      display: none;
+    }
+    .radio-input label {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #660512;
+      border-radius: 5px;
+      margin-right: 3px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+    }
+    .radio-input label:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #fff;
+      border: 2px solid #ccc;
+      transition: all 0.3s ease-in-out;
+    }
+    .radio-input input[type="radio"]:checked + label:before {
+      background-color: green;
+      top: 0;
+    }
+    .radio-input input[type="radio"]:checked + label {
+      background-color: royalblue;
+      color: #fff;
+      border-color: rgb(129, 235, 129);
+      animation: radio-translate 0.5s ease-in-out;
+    }
+    @keyframes radio-translate {
+      0% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+  </style> 
+ </head> 
+ <body> 
+  <div id="wrapper"> 
+   <div class="container"> 
+    <h1>HTML5 Adaptive Livestream for MPEG-DASH</h1> 
+    <h2>The livestream play everywhere with low startup delay, no buffering and in highest quality.</h2> 
+    <div class="content"> 
+     <div> 
+      <div data-shaka-player-container="" shaka-controls="true" class="shaka-video-container">
+       <video data-shaka-player="" id="video" poster="https://wallpapercave.com/wp/wp7762388.jpg" autoplay="" class="shaka-video">
+        <source src="blob:https://watch-ad.rf.gd/e44be789-28b4-49cb-936e-ac32c2ef580e" type="">
+       </video>
+       <canvas class="shaka-canvas-container"></canvas>
+       <canvas class="shaka-vr-canvas-container"></canvas>
+       <div class="shaka-controls-container" shown="true">
+        <div class="shaka-scrim-container"></div>
+        <div class="shaka-hidden-fast-forward-container">
+         <div class="shaka-fast-foward-container">
+          <span>0s</span>
+          <span class="shaka-forward-rewind-container-icon">fast_forward</span>
+         </div>
+        </div>
+        <div class="shaka-hidden-rewind-container">
+         <div class="shaka-rewind-container">
+          <span>0s</span>
+          <span class="shaka-forward-rewind-container-icon">fast_rewind</span>
+         </div>
+        </div>
+        <div class="shaka-server-side-ad-container"></div>
+        <div class="shaka-bottom-controls shaka-no-propagation">
+         <div class="shaka-ad-controls shaka-hidden">
+          <div class="shaka-ad-position shaka-hidden">
+           <span class="shaka-ad-position-span"></span>
+          </div>
+          <div class="shaka-ad-counter">
+           <span class="shaka-ad-counter-span"></span>
+          </div>
+          <div class="shaka-skip-ad-container">
+           <div class="shaka-skip-ad-counter shaka-hidden"></div>
+           <button type="button" class="shaka-skip-ad-button shaka-hidden shaka-no-propagation" disabled>Skip Ad</button>
+          </div>
+         </div>
+         <div class="shaka-controls-button-panel shaka-show-controls-on-mouse-over">
+          <button type="button" class="shaka-small-play-button material-icons-round shaka-tooltip" aria-label="Play">play_arrow</button>
+          <button type="button" class="shaka-current-time" disabled>0:00</button>
+          <div class="shaka-spacer" aria-hidden="true"></div>
+          <button type="button" class="shaka-mute-button shaka-tooltip" aria-label="Mute"><i class="material-icons-round">volume_up</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Mute</span><span class="shaka-current-selection-span"></span></label></button>
+          <div class="shaka-range-container shaka-volume-bar-container" style="background: linear-gradient(to right, rgb(255, 255, 255) 100%, rgba(255, 255, 255, 0.54) 100%, rgba(255, 255, 255, 0.54) 100%);">
+           <input class="shaka-range-element shaka-volume-bar" type="range" step="any" min="0" max="100" aria-label="Volume">
+          </div>
+          <button type="button" class="shaka-fullscreen-button material-icons-round shaka-tooltip shaka-hidden" aria-label="Full screen">fullscreen</button>
+          <button type="button" class="shaka-overflow-menu-button shaka-no-propagation material-icons-round shaka-tooltip" aria-label="More settings">more_vert</button>
+         </div>
+         <div class="shaka-range-container shaka-seek-bar-container" style="background: rgba(255, 255, 255, 0.3);">
+          <div class="shaka-ad-markers"></div>
+          <input class="shaka-range-element shaka-seek-bar shaka-no-propagation shaka-show-controls-on-mouse-over" type="range" step="any" min="0" max="0" aria-label="Seek">
+          <div id="shaka-player-ui-thumbnail-container">
+           <img id="shaka-player-ui-thumbnail-image" draggable="false">
+           <div id="shaka-player-ui-thumbnail-time"></div>
+          </div>
+          <div id="shaka-player-ui-time-container"></div>
+         </div>
+        </div>
+        <div class="shaka-overflow-menu shaka-no-propagation shaka-show-controls-on-mouse-over shaka-hidden">
+         <button type="button" class="shaka-overflow-button shaka-caption-button shaka-tooltip-status shaka-hidden" aria-pressed="false" aria-label="Captions" shaka-status="Off"><i class="material-icons-round">closed_caption_disabled</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Captions</span><span class="shaka-current-selection-span">Off</span></label></button>
+         <button type="button" class="shaka-overflow-button shaka-resolution-button shaka-tooltip-status shaka-hidden" shaka-status="Auto" aria-label="Resolution"><i class="material-icons-round">settings</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Resolution</span><span class="shaka-current-selection-span">Auto</span></label></button>
+         <button type="button" class="shaka-overflow-button shaka-language-button shaka-tooltip-status shaka-hidden" aria-label="Language" shaka-status=""><i class="material-icons-round">language</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Language</span><span class="shaka-current-selection-span"></span></label></button>
+         <button type="button" class="shaka-overflow-button shaka-chapter-button shaka-tooltip-status shaka-hidden" aria-label="Chapters"><i class="material-icons-round">bookmarks</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Chapters</span><span class="shaka-current-selection-span"></span></label></button>
+         <button type="button" class="shaka-pip-button shaka-tooltip shaka-hidden" aria-label="Enter Picture-in-Picture"><i class="material-icons-round">picture_in_picture_alt</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Picture-in-Picture</span><span class="shaka-current-selection-span">Off</span></label></button>
+         <button type="button" class="shaka-cast-button shaka-tooltip shaka-hidden" aria-pressed="false" aria-label="Cast..."><i class="material-icons-round">cast</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Cast...</span><span class="shaka-current-selection-span">Off</span></label></button>
+         <button type="button" class="shaka-overflow-button shaka-playbackrate-button shaka-tooltip-status" aria-label="Playback speed" shaka-status="0x"><i class="material-icons-round">slow_motion_video</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Playback speed</span><span class="shaka-current-selection-span">0x</span></label></button>
+         <button type="button" class="shaka-recenter-vr-button shaka-tooltip shaka-hidden" aria-pressed="false" aria-label="Recenter"><i class="material-icons-round">control_camera</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Recenter</span><span class="shaka-current-selection-span"></span></label></button>
+         <button type="button" class="shaka-toggle-stereoscopic-button shaka-tooltip shaka-hidden" aria-pressed="false" aria-label="Toggle stereoscopic"><i class="material-icons-round">3d_rotation</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Toggle stereoscopic</span><span class="shaka-current-selection-span"></span></label></button>
+         <button type="button" class="shaka-save.video-frame-button shaka-tooltip" aria-label="Save video frame"><i class="material-icons-round">download</i><label class="shaka-overflow-button-label shaka-overflow-menu-only"><span>Save video frame</span><span class="shaka-current-selection-span"></span></label></button>
+        </div>
+        <div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-text-languages">
+         <button type="button" class="shaka-back-to-overflow-button" aria-label="Back"><i class="material-icons-round">arrow_back</i><span>Captions</span></button>
+         <button type="button" class="shaka-turn-captions-off-button" aria-selected="true"><span class="shaka-auto-span shaka-chosen-item">Off</span><i class="material-icons-round shaka-chosen-item" aria-hidden="true">done</i></button>
+        </div>
+        <div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-resolutions">
+         <button type="button" class="shaka-back-to-overflow-button" aria-label="Resolution"><i class="material-icons-round">arrow_back</i><span>Resolution</span></button>
+         <button type="button" class="shaka-enable-abr-button" aria-selected="true"><span class="shaka-auto-span shaka-chosen-item">Auto</span><i class="material-icons-round shaka-chosen-item" aria-hidden="true">done</i></button>
+        </div>
+        <div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-audio-languages">
+         <button type="button" class="shaka-back-to-overflow-button" aria-label="Back"><i class="material-icons-round">arrow_back</i><span>Language</span></button>
+        </div>
+        <div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-chapters">
+         <button type="button" class="shaka-back-to-overflow-button" aria-label="Back"><i class="material-icons-round">arrow_back</i><span>Chapters</span></button>
+        </div>
+        <div class="shaka-no-propagation shaka-show-controls-on-mouse-over shaka-settings-menu shaka-hidden shaka-playback-rates">
+         <button type="button" class="shaka-back-to-overflow-button" aria-label="Back"><i class="material-icons-round">arrow_back</i><span>Playback speed</span></button>
+         <button type="button"><span>0.5x</span></button>
+         <button type="button"><span>0.75x</span></button>
+         <button type="button"><span>1x</span></button>
+         <button type="button"><span>1.25x</span></button>
+         <button type="button"><span>1.5x</span></button>
+         <button type="button"><span>1.75x</span></button>
+         <button type="button"><span>2x</span></button>
+        </div>
+       </div>
+       <div class="shaka-client-side-ad-container shaka-hidden"></div>
+       <div class="shaka-spinner-container shaka-hidden">
+        <div class="shaka-spinner">
+         <svg class="shaka-spinner-svg" viewbox="0 0 30 30">
+          <circle class="shaka-spinner-path" cx="15" cy="15" r="14.5" fill="none" stroke-width="1" stroke-miterlimit="10"></circle>
+         </svg>
+        </div>
+       </div>
+       <div class="shaka-text-container" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;"></div>
+      </div> 
+      <div class="radio-input"> 
+       <input value="value-1" name="value-radio" id="value-1" type="radio" onclick="loadVideo(0)" checked> 
+       <label for="value-1">HBO</label> 
+       <input value="value-2" name="value-radio" id="value-2" type="radio" onclick="loadVideo(1)"> 
+       <label for="value-2">HBO HITS</label> 
+       <input value="value-3" name="value-radio" id="value-3" type="radio" onclick="loadVideo(2)"> 
+       <label for="value-3">HBO FAMILY</label> 
+       <input value="value-4" name="value-radio" id="value-4" type="radio" onclick="loadVideo(3)"> 
+       <label for="value-4">HBO SIGNATURE</label> 
+       <input value="value-5" name="value-radio" id="value-5" type="radio" onclick="loadVideo(4)"> 
+       <label for="value-5">CINEMAX</label> 
+       <input value="value-6" name="value-radio" id="value-6" type="radio" onclick="loadVideo(5)"> 
+       <label for="value-6">DREAMWORKS</label> 
+       <input value="value-7" name="value-radio" id="value-7" type="radio" onclick="loadVideo(6)"> 
+       <label for="value-7">WARNER TV</label> 
+       <input value="value-8" name="value-radio" id="value-8" type="radio" onclick="loadVideo(7)"> 
+       <label for="value-8">BOO</label> 
+       <input value="value-9" name="value-radio" id="value-9" type="radio" onclick="loadVideo(8)"> 
+       <label for="value-9">WWE NETWORK</label> 
+       <input value="value-10" name="value-radio" id="value-10" type="radio" onclick="loadVideo(9)"> 
+       <label for="value-10">ROCK ENTERTAINMENT</label> 
+       <input value="value-11" name="value-radio" id="value-11" type="radio" onclick="loadVideo(10)"> 
+       <label for="value-11">SHOWCASE</label> 
+       <input value="value-12" name="value-radio" id="value-12" type="radio" onclick="loadVideo(11)"> 
+       <label for="value-12">tvN MOVIES</label> 
+       <input value="value-13" name="value-radio" id="value-13" type="radio" onclick="loadVideo(12)"> 
+       <label for="value-13">NICKELODEON</label> 
+       <input value="value-14" name="value-radio" id="value-14" type="radio" onclick="loadVideo(13)"> 
+       <label for="value-14">KIX</label> 
+       <input value="value-15" name="value-radio" id="value-15" type="radio" onclick="loadVideo(14)"> 
+       <label for="value-15">CELESTIAL MOVIES</label> 
+       <input value="value-16" name="value-radio" id="value-16" type="radio" onclick="loadVideo(15)"> 
+       <label for="value-16">HITS MOVIES</label> 
+       <input value="value-17" name="value-radio" id="value-17" type="radio" onclick="loadVideo(16)"> 
+       <label for="value-17">NBA TV PHILIPPINES</label> 
+       <h1>For more information about this livestream, Please contact and leave a message for this <a href="https://facebook.com/angelodave.gonzales" target="_blank">developer.</a> </h1> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <script>
+    const videos = [
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/2304/default_ott.mpd',
+        clearKey: {
+          'a098896d2b11c5f3906a993c3ba5c610' : 'f3f842c54cc96cbbd0bcb96a4cb8a813'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/5055/default_ott.mpd',
+        clearKey: {
+          '5d600eb70944d681c26c1f48fbe61f10' : '796139ba05a2ab425f978c7fd98b4372'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/5053/default_ott.mpd',
+        clearKey: {
+          '2b9ff7cc1a3dc9fef47cc5773472d510' : '7e37588e893ab9252e505bd6dda35beb'
+        }
+      },
+      {
+        manifestUri: 'https://qp-pldt-live-grp-01-prod.akamaized.net/out/u/cg_hbosign.mpd',
+        clearKey: {
+          'a06ca6c275744151895762e0346380f5' : '559da1b63eec77b5a942018f14d3f56f'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/603/default_ott.mpd',
+        clearKey: {
+          'efdb2a8d39151cc39f4b51d762cf9c10' : '13cc535ad4a73201147863cac386cdd3'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/5095/default_ott.mpd',
+        clearKey: {
+          'b5bfe3554df2abcd37afe130a7e1d310' : 'dccbdf043ac43d18be0b3eb43a582876'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/2605/default_ott.mpd',
+        clearKey: {
+          '6093e12639b24cd651ee6b3c13446d10' : 'f8326f668c7bee309e5302b513e5bdf7'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/2407/default_ott.mpd',
+        clearKey: {
+          'ea4d51ade01bbf3946e0de973051ba10' : 'f3266bec607f25879f48640f30f1c888'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/2603/default_ott.mpd',
+        clearKey: {
+          '0cbc4d3b4fbd9af512acb2488bb42910' : '30528c4ef882954e5707cd1001d66121'
+        }
+      },
+      {
+        manifestUri: 'https://tglmp02.akamaized.net/out/v1/621a7089e63144e4be7891cd9bfb10e2/manifest.mpd',
+        clearKey: {
+          '9229814c629b406f8de98d2f23c968a0' : '40b9f250455b43b3b2ea6845ab81abca'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/5054/default_ott.mpd',
+        clearKey: {
+          'b8090c8361cc5cc5c1aac0ec2710de10' : 'ca0d18538845bae2cb4f4a168036f174'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/2406/default_ott.mpd',
+        clearKey: {
+          '8e269c8aa32ad77eb83068312343d610' : 'd12ccebafbba2a535d88a3087f884252'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/2511/default_ott.mpd',
+        clearKey: {
+          'd8520e96a1283ab6e5be538474bfa810' : 'bda5f7bbc1e44096f779a0619fe9881f'
+        }
+      },
+      {
+        manifestUri: 'https://qp-pldt-live-grp-06-prod.akamaized.net/out/u/kix_hd1.mpd',
+        clearKey: {
+          'a8d5712967cd495ca80fdc425bc61d6b' : 'f248c29525ed4c40cc39baeee9634735'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/506/default_ott.mpd',
+        clearKey: {
+          'c5c1ba26907291afec11a9a78d513410' : '361197805d0149c29801946cf2dde67c'
+        }
+      },
+      {
+        manifestUri: 'https://linearjitp-playback.astro.com.my/dash-wv/linear/2305/default_ott.mpd',
+        clearKey: {
+          'ff1febd7018d0dd711601e795e0d6210' : '38fbfb3a56e40ff92c9df8acbcba9ef6'
+        }
+      },
+      {
+        manifestUri: 'https://qp-pldt-live-grp-02-prod.akamaized.net/out/u/pl_nba.mpd',
+        clearKey: {
+          'f36eed9e95f140fabbc88a08abbeafff' : '0125600d0eb13359c28bdab4a2ebe75a'
+        }
+      }
+    ];
+
+    async function loadVideo(index) {
+      const player = window.player;
+      const { manifestUri, clearKey } = videos[index];
+      console.log('Loading video:', manifestUri);
+
+      player.configure({
+        drm: {
+          clearKeys: clearKey
+        }
+      });
+
+      try {
+        await player.load(manifestUri);
+        console.log('Video loaded successfully!');
+      } catch (error) {
+        console.error('Error loading video:', error);
+      }
+    }
+
+    function initApp() {
+      shaka.polyfill.installAll();
+      if (shaka.Player.isBrowserSupported()) {
+        init();
+      } else {
+        console.error('Browser not supported!');
+      }
+    }
+
+    async function init() {
+      const video = document.getElementById('video');
+      const ui = video['ui'];
+      const controls = ui.getControls();
+      const player = controls.getPlayer();
+      const config = {
+        'seekBarColors': {
+          base: 'rgba(255, 255, 255, 0.3)',
+          buffered: 'rgba(255, 255, 255, 0.54)',
+          played: 'rgb(255, 255, 255)'
+        }
+      };
+
+      player.configure({
+        drm: {
+          clearKeys: videos[0].clearKey
+        }
+      });
+
+      ui.configure(config);
+      window.player = player;
+      window.ui = ui;
+      window.controls = controls;
+      player.addEventListener("error", onPlayerErrorEvent);
+      controls.addEventListener("error", onUIErrorEvent);
+
+      try {
+        await player.load(videos[0].manifestUri);
+        console.log('The video has now been loaded!');
+      } catch (error) {
+        console.error('Error loading video:', error);
+      }
+    }
+
+    function onPlayerErrorEvent(errorEvent) {
+      console.error('Player error:', errorEvent.detail);
+    }
+
+    function onUIErrorEvent(errorEvent) {
+      console.error('UI error:', errorEvent.detail);
+    }
+
+    document.addEventListener('shaka-ui-loaded', init);
+    document.addEventListener('shaka-ui-load-failed', initFailed);
+    document.addEventListener('DOMContentLoaded', initApp);
+
+    function initFailed() {
+      console.error('Shaka UI failed to load');
+    }
+
+    Object.defineProperty(navigator, 'userAgent', {
+      get: function () {
+        return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.4044.138 Safari/537.36';
+      }
+    });
+
+    const NUMBER_OF_SNOWFLAKES = 100;
+    const MAX_SNOWFLAKE_SIZE = 2;
+    const MAX_SNOWFLAKE_SPEED = 1;
+    const SNOWFLAKE_COLOUR = '#ddd';
+    const snowflakes = [];
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'absolute';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.top = '0px';
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    const createSnowflake = () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.floor(Math.random() * MAX_SNOWFLAKE_SIZE) + 1,
+      color: SNOWFLAKE_COLOUR,
+      speed: Math.random() * MAX_SNOWFLAKE_SPEED + 1,
+      sway: Math.random() - 0.5
+    });
+
+    const drawSnowflake = snowflake => {
+      ctx.beginPath();
+      ctx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
+      ctx.fillStyle = snowflake.color;
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    const updateSnowflake = snowflake => {
+      snowflake.y += snowflake.speed;
+      snowflake.x += snowflake.sway;
+      if (snowflake.y > canvas.height) {
+        Object.assign(snowflake, createSnowflake());
+      }
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      snowflakes.forEach(snowflake => {
+        updateSnowflake(snowflake);
+        drawSnowflake(snowflake);
+      });
+      requestAnimationFrame(animate);
+    }
+
+    for (let i = 0; i < NUMBER_OF_SNOWFLAKES; i++) {
+      snowflakes.push(createSnowflake());
+    }
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    window.addEventListener('scroll', () => {
+      canvas.style.top = `${window.scrollY}px`;
+    });
+
+    animate();
+  </script>
+  <canvas width="424" height="757" style="position: absolute; pointer-events: none; top: 0px;"></canvas> 
+ </body>
+</html>
